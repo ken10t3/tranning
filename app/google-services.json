@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "845942263062",
+    "firebase_url": "https://dayiotdonga-abd87.firebaseio.com",
+    "project_id": "dayiotdonga-abd87",
+    "storage_bucket": "dayiotdonga-abd87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845942263062:android:ca04731f8828c821f59437",
+        "android_client_info": {
+          "package_name": "ken.maker.com.demotranningport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845942263062-6b8535hc3o8g033o3einv56b0t0olsej.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY2f-nAKVDteGcO4veEaAg9QWU5vJ1pd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845942263062-6b8535hc3o8g033o3einv56b0t0olsej.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845942263062:android:c9da2fa965c87010f59437",
+        "android_client_info": {
+          "package_name": "ken.maker.com.testfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845942263062-6b8535hc3o8g033o3einv56b0t0olsej.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY2f-nAKVDteGcO4veEaAg9QWU5vJ1pd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845942263062-6b8535hc3o8g033o3einv56b0t0olsej.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
