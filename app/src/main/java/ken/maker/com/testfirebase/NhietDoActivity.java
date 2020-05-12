@@ -31,34 +31,16 @@ import java.util.List;
 public class NhietDoActivity extends AppCompatActivity {
 
     List<DataEntry> seriesData;
-    Cartesian cartesian;
     AnyChartView anyChartView;
+    Set set;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nhietdo);
-        seriesData = new ArrayList<>();
-
+        set = Set.instantiate();
+        CreateChart();
         getListData();
-
-        anyChartView = findViewById(R.id.any_chart_view);
-
-        cartesian = AnyChart.line();
-
-        cartesian.animation(true);
-
-        cartesian.padding(10d, 20d, 5d, 20d);
-
-        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
-
-        cartesian.title("Biểu đồ nhiệt độ.");
-
-        cartesian.yAxis(0).title("Đơn vị Độ C");
-        cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
-
-
-
 
     }
 
@@ -72,33 +54,15 @@ public class NhietDoActivity extends AppCompatActivity {
     private void getListData() {
         DatabaseReference mDatabase;
 
+        seriesData = new ArrayList<>();
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("test/update/nhietdobd");
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("Data", "ker : " + dataSnapshot.getKey() + "Value : = " + dataSnapshot.getValue());
-                seriesData.add(new CustomDataEntry(dataSnapshot.getKey(),Double.valueOf(String.valueOf(dataSnapshot.getValue()))));
-                Set set = Set.instantiate();
+                Log.d("Data", "ker : " + dataSnapshot.getKey() + " Value : = " + dataSnapshot.getValue());
+                seriesData.add(new CustomDataEntry(dataSnapshot.getKey(),  Double.valueOf(dataSnapshot.getValue(String.class))));
                 set.data(seriesData);
-                Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
-
-                Line series1 = cartesian.line(series1Mapping);
-                series1.name("Nhiệt độ");
-                series1.hovered().markers().enabled(true);
-                series1.hovered().markers()
-                        .type(MarkerType.CIRCLE)
-                        .size(4d);
-                series1.tooltip()
-                        .position("right")
-                        .anchor(Anchor.LEFT_CENTER)
-                        .offsetX(5d)
-                        .offsetY(5d);
-
-                cartesian.legend().enabled(true);
-                cartesian.legend().fontSize(13d);
-                cartesian.legend().padding(0d, 0d, 10d, 0d);
-
-                anyChartView.setChart(cartesian);
             }
 
             @Override
@@ -126,7 +90,44 @@ public class NhietDoActivity extends AppCompatActivity {
 
         mDatabase.addChildEventListener(childEventListener);
 
+    }
 
+    private void CreateChart() {
+        anyChartView = findViewById(R.id.any_chart_view);
+
+        Cartesian cartesian = AnyChart.line();
+
+        cartesian.animation(true);
+
+        cartesian.padding(10d, 20d, 5d, 20d);
+
+        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
+
+        cartesian.title("Biểu đồ nhiệt độ.");
+
+        cartesian.yAxis(0).title("Đơn vị Độ C ");
+        cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
+
+        set.data(seriesData);
+        Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
+
+        Line series1 = cartesian.line(series1Mapping);
+        series1.name("Brandy");
+        series1.hovered().markers().enabled(true);
+        series1.hovered().markers()
+                .type(MarkerType.CIRCLE)
+                .size(4d);
+        series1.tooltip()
+                .position("right")
+                .anchor(Anchor.LEFT_CENTER)
+                .offsetX(5d)
+                .offsetY(5d);
+
+        cartesian.legend().enabled(true);
+        cartesian.legend().fontSize(13d);
+        cartesian.legend().padding(0d, 0d, 10d, 0d);
+
+        anyChartView.setChart(cartesian);
     }
 
 }

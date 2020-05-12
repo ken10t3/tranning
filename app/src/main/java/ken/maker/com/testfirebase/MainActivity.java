@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     Button xBDNhietDo, xBDDoAm;
-    TextView tv_nhietDoC, tvNhietDoF;
+    TextView tv_nhietDoC, tvNhietDoF, tv_doam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +27,20 @@ public class MainActivity extends AppCompatActivity {
         xBDDoAm = findViewById(R.id.btn_bd_doam);
         tv_nhietDoC = findViewById(R.id.tv_nhietdo_c);
         tvNhietDoF = findViewById(R.id.tv_nhietdo_f);
+        tv_doam = findViewById(R.id.tv_doam);
 
         xBDNhietDo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, NhietDoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        xBDDoAm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DoAmActivity.class);
                 startActivity(intent);
             }
         });
@@ -83,6 +92,22 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         databaseReference.addValueEventListener(eventListener);
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Device/EsptoMobile/doam");
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                DataSnapshot doam = (DataSnapshot) dataSnapshot.getChildren();
+                tv_doam.setText(dataSnapshot.getValue() + "%");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        reference.addValueEventListener(valueEventListener);
+
     }
 
     private void controlLed() {
